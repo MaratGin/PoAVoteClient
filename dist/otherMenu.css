@@ -1,0 +1,122 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e0e0e0;
+  }
+  
+  .navbar {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-bottom: 1px solid #000;
+  }
+  
+  .navbar-content {
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+  }
+  
+  .user-name {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .navbar button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #joinVoteButton {
+    background-color: #008CBA;
+  }
+  
+  #joinVoteButton:hover {
+    background-color: #007bb5;
+  }
+  
+  #createVoteButton {
+    background-color: #4CAF50;
+  }
+  
+  #createVoteButton:hover {
+    background-color: #45a049;
+  }
+  
+  #logoutButton {
+    background-color: #f44336;
+  }
+  
+  #logoutButton:hover {
+    background-color: #e53935;
+  }
+  
+  .container {
+    padding: 20px;
+  }
+  
+  h2 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .vote-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .vote-card h3 {
+    margin: 0 0 20px;
+  }
+  
+  .vote-card button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+  }
+  
+  .result-button {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .result-button:hover {
+    background-color: #45a049;
+  }
+
+  .resultt-button {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .resultt-button:hover {
+    background-color: #45a049;
+  }
+  
+  .vote-button {
+    background-color: #4CAF50;
+    color: white;
+  }
+
+  .end-button {
+    background-color: #e53935;
+    color: white;
+  }
+  
+  .vote-button:hover {
+    background-color: #45a049;
+  }
+  

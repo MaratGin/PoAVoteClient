@@ -1,0 +1,80 @@
+
+  button#exitButton {
+      background-color: #e53935;
+  }
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+    padding: 10px;
+  }
+  
+  .container {
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box; 
+    overflow: auto; 
+  }
+  
+  h1 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  button[type="button"] {
+    background-color: #008CBA;
+  }
+  
+  button[type="button"]:hover {
+    background-color: #007bb5;
+  }
+  
+  button#backButton {
+    background-color: #555;
+    color: white;
+  }
+  
+  button#backButton:hover {
+    background-color: #333;
+  }
+  
+  label {
+    display: block;
+    margin: 10px 0;
+  }
+  
+  input[type="radio"] {
+    margin-right: 10px;
+  }
+  
+  #voteResult p {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  

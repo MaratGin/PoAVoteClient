@@ -1,0 +1,233 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Create Vote</title>
+    <link rel="stylesheet" href="createVote.css">
+</head>
+<div class="container">
+    <h1>Создание нового голосования</h1>
+    <form id="createVoteForm">
+        <label for="voteTitle">Заголовок голосования:</label>
+        <input type="text" id="voteTitle" name="voteTitle" required>
+
+        <label for="voteOptions">Варианты выбора:</label>
+        <div id="optionsContainer">
+            <div class="optionItem">
+                <input type="text" name="option" placeholder="Option 1" required>
+                <button type="button" class="removeOptionButton">Удалить</button>
+            </div>
+        </div>
+        <button type="button" id="addOptionButton">Добавить вариант</button>
+
+        <label for="voteFormat">Формат голосования:</label>
+        <select id="voteFormat" name="voteFormat" required>
+            <option value="open">Открытый</option>
+            <option value="closed">Закрытый</option>
+        </select>
+
+        <label for="multiFormat">Возможность мультивыбора:</label>
+        <select id="multiFormat" name="multiFormat" required>
+            <option value="no">Нет</option>
+            <option value="yes">Да</option>
+        </select>
+
+        <label for="users">Избиратели:</label>
+        <button type="button" id="uploadCSVButton">Выгрузить из csv файла</button>
+        <div id="usersContainer"></div>
+        <button type="button" id="addUserButton">Добавить пользователя</button>
+        <input type="file" id="csvFileInput" style="display:none">
+
+        <label for="users">Валидаторы:</label>
+        <!-- <button type="button" id="addValidatorButton">Add Validator</button> -->
+        <div class="user-buttons">
+            <!-- <button type="button" id="generateInviteKeyButton">Сгенерировать ключи подключения</button> -->
+            <button type="button" id="addValidatorButton">Добавить валидатора</button>
+        </div>
+        <div id="validatorContainer"></div>
+        <button type="submit">Начать голосование</button>
+    </form>
+    <button id="backButton">Вернуться назад</button>
+
+</div>
+
+<script>
+    let optionCount = 1;
+    document.getElementById('addOptionButton').addEventListener('click', () => {
+        optionCount++;
+        const optionsContainer = document.getElementById('optionsContainer');
+        const optionItem = document.createElement('div');
+        optionItem.className = 'optionItem';
+        optionItem.innerHTML = `
+            <input type="text" name="option" placeholder="Option ${optionCount}" required>
+            <button type="button" class="removeOptionButton">Удалить</button>
+          `;
+        optionsContainer.appendChild(optionItem);
+        attachRemoveOptionEvent(optionItem.querySelector('.removeOptionButton'));
+    });
+
+    function attachRemoveOptionEvent(button) {
+        button.addEventListener('click', (event) => {
+            event.target.parentElement.remove();
+        });
+    }
+
+    document.querySelectorAll('.removeOptionButton').forEach(button => {
+        attachRemoveOptionEvent(button);
+        optionCount = optionCount - 1;
+    });
+
+    let userCount = 0;
+    document.getElementById('addUserButton').addEventListener('click', () => {
+        userCount++;
+        const usersContainer = document.getElementById('usersContainer');
+        const userItem = document.createElement('div');
+        userItem.className = 'userItem';
+        userItem.innerHTML = `
+            <input type="text" name="userName" placeholder="User Name" required>
+            <input type="email" name="userEmail${userCount}" placeholder="User Email" required>
+            <button type="button" class="removeUserButton">Удалить</button>
+          `;
+        usersContainer.appendChild(userItem);
+        attachRemoveUserEvent(userItem.querySelector('.removeUserButton'));
+    });
+
+    function attachRemoveUserEvent(button) {
+        button.addEventListener('click', (event) => {
+            event.target.parentElement.remove();
+        });
+    }
+
+    document.getElementById('uploadCSVButton').addEventListener('click', () => {
+        document.getElementById('csvFileInput').click();
+    });
+
+    document.getElementById('csvFileInput').addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const text = e.target.result;
+                parseCSV(text);
+            };
+            reader.readAsText(file);
+        }
+    });
+
+    function parseCSV(text) {
+        const lines = text.split('\n');
+        lines.forEach(line => {
+            const [name, email, role] = line.split(',');
+            if (name && email && role) {
+                userCount++;
+                const usersContainer = document.getElementById('usersContainer');
+                const userItem = document.createElement('div');
+                userItem.className = 'userItem';
+                userItem.innerHTML = `
+                <input type="text" name="userName" placeholder="User Name" value="${name.trim()}" required>
+                <input type="email" name="userEmail${userCount}" placeholder="User Email" value="${email.trim()}" required>
+                <input type="text" name="userRole${userCount}" placeholder="User Role" value="${role.trim()}" required>
+                <button type="button" class="removeUserButton">Удалить</button>
+              `;
+                usersContainer.appendChild(userItem);
+                attachRemoveUserEvent(userItem.querySelector('.removeUserButton'));
+            }
+        });
+    }
+
+    let validatorCount = 0;
+    const validatorContainer = document.getElementById('validatorContainer');
+
+    document.getElementById('addValidatorButton').addEventListener('click', () => {
+        validatorCount++;
+        const validatorItem = document.createElement('div');
+        validatorItem.className = 'validatorItem';
+        validatorItem.innerHTML = `
+            <input type="text" name="validatorName" placeholder="Validator Data" required>
+            <input type="email" name="validatorEmail${validatorCount}" placeholder="Validator Email" required>
+            <input type="text" name="validatorRole" placeholder="Endpoint" required>
+            <button type="button" class="removeUserButton">Удалить</button>
+          `;
+        validatorContainer.appendChild(validatorItem);
+        attachRemoveUserEvent(validatorItem.querySelector('.removeUserButton'));
+    });
+
+    document.getElementById('createVoteForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+
+      const voteTitle = document.getElementById('voteTitle').value;
+      const voteOptions = Array.from(document.getElementsByName('option')).map(input => input.value);
+      const userNames = Array.from(document.getElementsByName('userName')).map(input => input.value);
+      const validatorNames = Array.from(document.getElementsByName('validatorRole')).map(input => input.value);
+      const voteFormat = document.getElementById('voteFormat').value;
+      const multiFormat = document.getElementById('multiFormat').value;
+
+      let isOpen = false;
+      if (voteFormat == "open") {
+        isOpen = true;
+      }
+
+      let isMulti = false;
+      if (multiFormat == "yes") {
+        isMulti = true;
+      }
+
+      const user = await window.electron.invoke('user-name');
+
+
+      const voteData = {
+        ownerName: user,
+        title: voteTitle,
+        options: voteOptions,
+        userNames: userNames,
+        validatorNames: validatorNames,
+        isOpen: isOpen,
+        isMulti: isMulti
+      };
+
+    console.log('voteData:', JSON.stringify(voteData, null, 2));
+
+
+
+      try {
+        const response = await fetch('http://127.0.0.1:9090/vote', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(voteData)
+        });
+
+        if (response.ok) {
+        //   const result = await response.json();
+          alert('Vote created successfully!');
+          window.electron.send('navigate-to', 'dist/otherMenu.html');
+        } else {
+          const error = await response.json();
+          alert(`Error: ${error.message}`);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while creating the vote');
+      }
+    });
+
+    document.getElementById('backButton').addEventListener('click', () => {
+        console.log('BACK')
+        window.electron.send('navigate-to', 'dist/otherMenu.html');
+    });
+
+
+    async function getPublicKey() {
+        const inviteKey = await window.electron.invoke('get-local-public-key');
+        return inviteKey;
+        // alert(`Generated Public Key: ${inviteKey}`);
+        // console.log(userNames);
+        // return Math.random().toString(36).substr(2, 8).toUpperCase();
+    }
+</script>
+</body>
+
+</html>
