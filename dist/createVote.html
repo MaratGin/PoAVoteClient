@@ -1,4 +1,3 @@
-<!-- dist/createVote.html -->
 
 <!DOCTYPE html>
 <html>
@@ -188,10 +187,8 @@
         isMulti: isMulti
       };
 
-    //   console.log(voteData);
     console.log('voteData:', JSON.stringify(voteData, null, 2));
-    // alert('Vote created successfully!');
-    // window.electron.send('navigate-to', 'dist/voteDetails.html');
+
 
 
       try {
@@ -207,7 +204,6 @@
         //   const result = await response.json();
           alert('Vote created successfully!');
           window.electron.send('navigate-to', 'dist/otherMenu.html');
-          // Перенаправление или дальнейшие действия
         } else {
           const error = await response.json();
           alert(`Error: ${error.message}`);

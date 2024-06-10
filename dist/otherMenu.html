@@ -91,14 +91,11 @@
       window.electron.send('navigate-to', 'dist/index.html');
     });
 
-        // Делегирование событий для voteList
       document.getElementById('cont').addEventListener('click', (event) => {
       const voteItem = event.target.closest('.newCreated');
       if (voteItem) {
         window.electron.send('navigate-to', 'dist/voteDetails.html');
-        // const voteId = voteItem.dataset.voteId;
-        // console.log(`Vote item clicked: ${voteId}`);
-        // Добавьте здесь вашу логику для обработки клика по элементу голосования
+
       }
       const invitedItem = event.target.closest('.newInvited');
       if (invitedItem) {

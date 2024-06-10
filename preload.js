@@ -2,7 +2,6 @@
 const { contextBridge, ipcRenderer } = require('electron');
 // const ipcRenderer = require('electron').ipcRenderer;
 
-// Все API Node.js будут доступны в контексте рендерера.
 window.addEventListener('DOMContentLoaded', () => {
     const replaceText = (selector, text) => {
       const element = document.getElementById(selector);

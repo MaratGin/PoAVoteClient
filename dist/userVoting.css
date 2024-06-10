@@ -2,8 +2,6 @@
   button#exitButton {
       background-color: #e53935;
   }
-  
-/* styles.css */
 
 body {
     font-family: Arial, sans-serif;
@@ -13,7 +11,7 @@ body {
     height: 100vh;
     margin: 0;
     background-color: #f0f0f0;
-    padding: 10px; /* Добавление отступов в body */
+    padding: 10px;
   }
   
   .container {
@@ -24,8 +22,8 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
     height: 100%;
-    box-sizing: border-box; /* Учитываем padding и border в ширину и высоту */
-    overflow: auto; /* Чтобы содержимое прокручивалось, если его много */
+    box-sizing: border-box; 
+    overflow: auto; 
   }
   
   h1 {

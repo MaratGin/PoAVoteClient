@@ -40,7 +40,6 @@
         document.getElementById('registrationForm').addEventListener('submit', async function(event) {
         event.preventDefault();
 
-        // Clear previous error messages
         document.getElementById('usernameError').textContent = '';
         document.getElementById('emailError').textContent = '';
         document.getElementById('passwordError').textContent = '';
@@ -71,8 +70,6 @@
           document.getElementById('passwordError').textContent = 'Passwords do not match.';
           return;
         }
-        
-        // If all validations pass, submit the form (or handle the form data as needed)
 
         const registrationData = {
         username: username,
@@ -94,8 +91,6 @@
           alert('Регистрация прошла успешно!');
           const saveSession =  await window.electron.invoke('save-session', registrationData);
           window.electron.send('navigate-to', 'dist/otherMenu.html');
-
-          // Перенаправление на другую страницу или дальнейшие действия
         } else {
           const error = await response.json();
           alert(`Ошибка: ${error.message}`);

@@ -18,9 +18,7 @@
 
     <script>
       document.getElementById('createVoteButton').addEventListener('click', () => {
-        // Здесь можно добавить логику для кнопки "Создать голосование"
         window.electron.send('navigate-to', 'dist/createVote.html')
-        // alert('Создать голосование нажато');
       });
 
       document.getElementById('joinVoteButton').addEventListener('click', () => {

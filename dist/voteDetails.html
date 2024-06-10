@@ -33,9 +33,6 @@
 
     document.getElementById('viewBlocksButton').addEventListener('click', () => {
       window.electron.send('navigate-to', 'dist/detailedBlock.html');
-
-      // Логика для просмотра блоков
-      // alert('Функция просмотра блоков пока не реализована.');
     });
 
 
@@ -78,12 +75,6 @@
         }
       }
     });
-
-
-
-
-        
-        // Обработка полученного JSON
         const voteList = document.getElementById('voteList');
         history.forEach(entry => {
           const listItem = document.createElement('li');

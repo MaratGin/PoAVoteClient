@@ -33,12 +33,10 @@
         document.getElementById('registrationForm').addEventListener('submit', async function(event) {
         event.preventDefault();
 
-        // Clear previous error messages
         document.getElementById('usernameError').textContent = '';
         document.getElementById('emailError').textContent = '';
         document.getElementById('passwordError').textContent = '';
 
-        // Validate username
         const username = document.getElementById('username').value;
         const usernameRegex = /^[a-zA-Z0-9]+$/;
         console.log("123")
@@ -49,23 +47,19 @@
           return;
         }
 
-        // Validate email
         const email = document.getElementById('email').value;
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
           document.getElementById('emailError').textContent = 'Please enter a valid email address.';
           return;
         }
-
-        // Validate password
         const password = document.getElementById('password').value;
         const confirmPassword = document.getElementById('confirmPassword').value;
         if (password !== confirmPassword) {
           document.getElementById('passwordError').textContent = 'Passwords do not match.';
           return;
         }
-        
-        // If all validations pass, submit the form (or handle the form data as needed)
+      
 
         const registrationData = {
         username: username,
@@ -87,8 +81,6 @@
           alert('Регистрация прошла успешно!');
           const saveSession =  await window.electron.invoke('save-session', registrationData);
           window.electron.send('navigate-to', 'dist/otherMenu.html');
-
-          // Перенаправление на другую страницу или дальнейшие действия
         } else {
           const error = await response.json();
           alert(`Ошибка: ${error.message}`);
