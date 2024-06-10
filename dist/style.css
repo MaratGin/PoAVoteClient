@@ -1,0 +1,46 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+  }
+  
+  h1 {
+    color: #333;
+  }
+  
+  button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #buttonA {
+    background-color: #4CAF50; /* Зеленый */
+  }
+  
+  #buttonA:hover {
+    background-color: #45a049;
+  }
+  
+  #buttonB {
+    background-color: #008CBA; /* Синий */
+  }
+
+  #buttonС {
+    background-color: #ba8500; /* Карий */
+  }
+  
+  #buttonB:hover {
+    background-color: #007bb5;
+  }
+  

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello Electron</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <h1>Welcome to the PoAVote!</h1>
+    <button id="buttonA">Регистрация</button>
+    <button id="buttonB">Войти в существующий аккаунт</button>
+    <!-- <button id="buttonС">Присоединиться к голосованию</button> -->
+    <p>Current versions:  Node.js <span id="node-version"></span>, Chromium <span id="chrome-version"></span>, and Electron <span id="electron-version"></span>.</p>
+
+    <script>
+      // const { ipcRenderer } = require('electron');
+
+      document.getElementById('buttonA').addEventListener('click', () => {
+        window.electron.send('navigate-to', 'dist/signUp.html');
+      });
+
+      document.getElementById('buttonB').addEventListener('click', () => {
+        window.electron.send('navigate-to', 'dist/otherMenu.html');
+        alert('TEST');
+      });
+
+
+      // document.getElementById('buttonС').addEventListener('click', () => {
+      //   window.electron.send('navigate-to', 'dist/otherMenu.html');
+      //   alert('TEST');
+      // });
+    </script>
+  </body>
+</html>

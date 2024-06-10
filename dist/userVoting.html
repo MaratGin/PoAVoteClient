@@ -1,0 +1,91 @@
+<!-- dist/vote.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Vote</title>
+  <link rel="stylesheet" href="userVoting.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Vote for Your Favorite Option</h1>
+    <form id="voteForm">
+      <div id="voteOptionsContainer">
+        <!-- Примеры вариантов голосования -->
+        <label>
+          <input type="radio" name="voteOption" value="Option 1" required> Казань
+        </label>
+        <label>
+          <input type="radio" name="voteOption" value="Option 2"> Москва
+        </label>
+        <label>
+          <input type="radio" name="voteOption" value="Option 3"> Самара
+        </label>
+      </div>
+      <button type="submit" id="voteButton">Проголосовать</button>
+    </form>
+    <div id="voteResult" style="display: none;">
+      <p>Вы успешно проголосовали!</p>
+      <button id="viewResultsButton">Посмотреть текущие результаты</button>
+      <button id="exitButton">Выйти</button>
+    </div>
+  </div>
+
+  <script>
+
+
+    document.getElementById('viewResultsButton').addEventListener('click', () => {
+      // Логика для просмотра текущих результатов
+      console.log('View current results');
+      // alert('Функция просмотра результатов пока не реализована.');
+      window.electron.send('navigate-to', 'dist/voteDetails.html');
+
+    });
+
+    document.getElementById('exitButton').addEventListener('click', () => {
+      window.electron.send('navigate-to', 'dist/otherMenu.html');
+    });
+
+    document.getElementById('voteForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+      document.getElementById('voteOptionsContainer').style.display = 'none';
+      document.getElementById('voteButton').style.display = 'none';
+      document.getElementById('voteResult').style.display = 'block';
+      
+      const voterName = await window.electron.invoke('user-name');
+      const voteChoice = 'Москва';
+      const timestamp = new Date().toISOString();
+
+      const voteData = {
+        voter: voterName,
+        choice: voteChoice,
+        timestamp: 1717912068
+      };
+
+      console.log('voteData:', JSON.stringify(voteData, null, 2)); // Для демонстрации
+
+      try {
+        const response = await fetch('http://127.0.0.1:10040/vote', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(voteData)
+        });
+
+        if (response.ok) {
+          alert('Ваш голос успешно отправлен!');
+          // Перенаправление на другую страницу или дальнейшие действия
+        } else {
+          const error = await response.json();
+          alert(`Ошибка: ${error.message}`);
+        }
+      } catch (error) {
+        console.error('Ошибка:', error);
+        alert('Произошла ошибка при отправке голоса');
+      }
+    });
+  </script>
+</body>
+</html>

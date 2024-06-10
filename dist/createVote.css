@@ -1,0 +1,128 @@
+/* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+  }
+  
+  .container {
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  label {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  select {
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 80%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .optionItem,
+  .userItem {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: -10px;
+  }
+  
+  .optionItem input[type="text"],
+  .userItem input[type="text"],
+  .userItem input[type="email"] {
+    flex: 1;
+    margin-right: 10px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  button[type="button"] {
+    background-color: #008CBA;
+  }
+  
+  button[type="button"]:hover {
+    background-color: #007bb5;
+  }
+  
+  button.removeOptionButton,
+  button.removeUserButton {
+    background-color: #f44336;
+    /* margin-left: 10px; */
+    margin-bottom: 20px ;
+  }
+  
+  button.removeOptionButton:hover,
+  button.removeUserButton:hover {
+    background-color: #e53935;
+  }
+  
+  button#backButton {
+    background-color: #555;
+    color: white;
+  }
+  
+  button#backButton:hover {
+    background-color: #333;
+  }
+  .user-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .optionItem,
+  .validatorItem {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: -10px;
+  }
+  
+  .optionItem input[type="text"],
+  .validatorItem input[type="text"],
+  .validatorItem input[type="email"] {
+    flex: 1;
+    margin-right: 10px;
+  }
+  

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Voting Page</title>
+  <link rel="stylesheet" href="otherMenu.css">
+</head>
+<body>
+  <div class="navbar">
+    <div class="navbar-content">
+      <span class="user-name">Ivan Ivanov</span>
+      <!-- <button id="joinVoteButton">Подключиться к голосованию</button> -->
+      <button id="createVoteButton">Создать голосование</button>
+      <button id="logoutButton" class="logout">Выйти из аккаунта</button>
+    </div>
+  </div>
+  <div id="cont"class="container">
+    <h2>Текущие голосования:</h2>
+    <div id="invited-container"> 
+
+    </div>
+    <!-- <div class="vote-card">
+      <h3>Тестовое голосования</h3>
+      <button class="result-button">Просмотреть результаты</button>
+      <button class="vote-button">Проголосовать</button>
+    </div> -->
+
+    <h2>Созданные голосования:</h2>
+    <div id="created-container">
+    <!-- <div class="vote-card">
+        <h3>Название другого голосования</h3>
+        <button class="result-button">Просмотреть результаты</button>
+        <button class="vote-button">Проголосовать</button>
+        <button class="end-button">Завершить голосование</button>
+      </div> -->
+    </div> 
+  </div>
+
+  <script>
+
+
+      window.addEventListener('DOMContentLoaded', async () => {
+        const user = await window.electron.invoke('init-user');
+        document.querySelector('.user-name').textContent = user.username;
+
+        const votes = await window.electron.invoke('get-votes');
+        const validatorContainer = document.getElementById('created-container');
+
+        votes.forEach(vote => {
+          console.log(`vot_id: ${vote.vot_id}, name: ${vote.name}, owner_id: ${vote.owner_id}, is_finished: ${vote.is_finished}`);
+        const createdVote = document.createElement('div');
+        createdVote.className = 'newCreated';
+        createdVote.innerHTML = `
+        <div class="vote-card">
+        <h3>${vote.name}</h3>
+        <button class="resultt-button" id="resultt-button">Просмотреть результаты</button>
+        <button class="end-button">Завершить голосование</button>
+      </div>
+          `;
+
+        validatorContainer.appendChild(createdVote);
+        });
+
+
+
+
+        const votee = await window.electron.invoke('get-invited-votes');
+        if (votee != 1) {
+          const invitedContainer = document.getElementById('invited-container');
+
+          console.log(`NAME VOTE: ${votee},}`);
+          const createdVote = document.createElement('div');
+          createdVote.className = 'newInvited';
+          createdVote.innerHTML = `
+          <div class="vote-card">
+          <h3>${votee}</h3>
+          <button class="resultt-button" id="resultt-button">Просмотреть результаты</button>
+          <button class="vote-button">Проголосовать</button>
+          </div>
+          `;
+          invitedContainer.appendChild(createdVote);
+        }
+    
+    });
+
+    document.getElementById('createVoteButton').addEventListener('click', () => {
+      window.electron.send('navigate-to', 'dist/createVote.html');
+    });
+
+    document.getElementById('logoutButton').addEventListener('click', () => {
+      window.electron.send('navigate-to', 'dist/index.html');
+    });
+
+        // Делегирование событий для voteList
+      document.getElementById('cont').addEventListener('click', (event) => {
+      const voteItem = event.target.closest('.newCreated');
+      if (voteItem) {
+        window.electron.send('navigate-to', 'dist/voteDetails.html');
+        // const voteId = voteItem.dataset.voteId;
+        // console.log(`Vote item clicked: ${voteId}`);
+        // Добавьте здесь вашу логику для обработки клика по элементу голосования
+      }
+      const invitedItem = event.target.closest('.newInvited');
+      if (invitedItem) {
+        window.electron.send('navigate-to', 'dist/userVoting.html');
+      }
+
+
+    });
+
+    // document.getElementById('resultt-button').addEventListener('click', () => {
+    //   window.electron.send('navigate-to', 'dist/voteDetails.html');
+    // });
+
+
+    // document.querySelector('.result-button').addEventListener('click', () => {
+    //   // Логика для просмотра результатов голосования
+    // });
+
+    // document.querySelector('.vote-button').addEventListener('click', () => {
+    //   // Логика для голосования
+    // });
+  </script>
+</body>
+</html>
