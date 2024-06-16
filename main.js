@@ -190,7 +190,7 @@ ipcMain.handle('get-invited-votes', async (event) => {
   const username = store.get('name');
   let smth;
   try {
-    const response = await fetch('http://127.0.0.1:10040/getVotes?user_name=' + username);
+    const response = await fetch('http://127.0.0.1:10098/getVotes?user_name=' + username);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }

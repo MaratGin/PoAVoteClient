@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Vote</title>
+  <title>Голосование</title>
   <link rel="stylesheet" href="userVoting.css">
 </head>
 <body>
@@ -11,13 +11,13 @@
     <form id="voteForm">
       <div id="voteOptionsContainer">
         <label>
-          <input type="radio" name="voteOption" value="Option 1" required> Казань
+          <input type="radio" name="voteOption" value="Казань" required> Казань
         </label>
         <label>
-          <input type="radio" name="voteOption" value="Option 2"> Москва
+          <input type="radio" name="voteOption" value="Москва"> Москва
         </label>
         <label>
-          <input type="radio" name="voteOption" value="Option 3"> Самара
+          <input type="radio" name="voteOption" value="Владивосток"> Владивосток
         </label>
       </div>
       <button type="submit" id="voteButton">Проголосовать</button>
@@ -50,7 +50,15 @@
       document.getElementById('voteResult').style.display = 'block';
       
       const voterName = await window.electron.invoke('user-name');
-      const voteChoice = 'Москва';
+      var elem = document.getElementsByName('voteOption');
+
+      let voteChoice = 'Москва';
+ 
+      for (i = 0; i < elem.length; i++) {
+          if (elem[i].checked) {
+            voteChoice = elem[i].value;
+          }
+        }
       const timestamp = new Date().toISOString();
 
       const voteData = {
@@ -61,7 +69,7 @@
 
 
       try {
-        const response = await fetch('http://127.0.0.1:10040/vote', {
+        const response = await fetch('http://127.0.0.1:10098/vote', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
